@@ -117,6 +117,7 @@
 		var d = document.createElement('div');
 		
 		d.id = "list-" + lists.length;  
+		
 		var id = lists.length;
 		 
 		lists.push( {
@@ -136,7 +137,8 @@
 
 			deleteList(this.id)
 		}
-		
+		d.setAttribute('ondrop', 'drop(event)');
+		d.setAttribute('ondragover', 'allowDrop(event)');
 		d.appendChild(a);
 		p.a = a;
 
@@ -152,8 +154,8 @@
 		
 		var c= document.createElement('div');
 		c.setAttribute('id', 'cards-'+id);
-		c.setAttribute('ondrop', 'drop(event)');
-		c.setAttribute('ondragover', 'allowDrop(event)');
+		/*c.setAttribute('ondrop', 'drop(event)');
+		c.setAttribute('ondragover', 'allowDrop(event)');*/
 		t.appendChild(c);
 		
 
@@ -190,6 +192,8 @@
 		d.id = "card-" + cards.length;  
 		d.className = "card_item";
 		var id = cards.length;
+		d.setAttribute('draggable', true);
+		d.setAttribute('ondragstart', 'drag(event)');
 		 
 		cards.push( {
 		d : d,	
@@ -207,15 +211,41 @@
 
 			deleteCard(this.id,no)
 		}
+
+        d.appendChild(a);
+        p.a = a;    
+
+       
+     /*   var ed = document.createElement('a');
+		ed.id = id;
+		ed.className = "close";
+		ed.innerHTML = "e";
+		var iconSpan = document.createElement('span');
+		iconSpan.className="glyphicon glyphicon-edit";
+
+		ed.appendChild(iconSpan);
+
+		ed.onclick = function(){
+
+			alert('entered edit');
+			alert(this.id);
+			document.getElementById('pcard-'+no).setAttribute('contenteditable', true);
+			alert(document.getElementById('pcard-'+no).innerHTML);
+			c=document.getElementById('pcard-'+no).innerHTML;
+			alert('c'+c);
+		    savecards();
+			
+		}
 		
-		d.appendChild(a);
-		p.a = a;
+		d.appendChild(ed);
+        p.ed = ed;*/
+
+	
 
 		var h = document.createElement('p');
 		h.innerHTML = content;
-		h.setAttribute('contenteditable', true);
-		h.setAttribute('draggable', true);
-		h.setAttribute('ondragstart', 'drag(event)');
+		h.setAttribute('id',d.id);
+		h.setAttribute('contenteditable', false);
 		d.appendChild(h);
 		p.h = h;
 		l.appendChild(d);
@@ -249,6 +279,7 @@
 
 	function drag(ev)
 	{
+		//alert('target id'+ev.target.id);
 		ev.dataTransfer.setData("Text",ev.target.id);
 	}
 
@@ -256,7 +287,10 @@
 	{
 		ev.preventDefault();
 		var data=ev.dataTransfer.getData("Text");
-		document.getElementById("cards-0").appendChild(document.getElementById(data));
+		//document.getElementById("cards-0").appendChild(document.getElementById(data));
+		alert('target child'+ev.target.id);
+		alert('div element'+document.getElementById(data));
+		ev.target.appendChild(document.getElementById(data));
 	}
 	
 	/* Custom */
