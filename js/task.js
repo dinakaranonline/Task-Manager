@@ -215,36 +215,11 @@
         d.appendChild(a);
         p.a = a;    
 
-       
-     /*   var ed = document.createElement('a');
-		ed.id = id;
-		ed.className = "close";
-		ed.innerHTML = "e";
-		var iconSpan = document.createElement('span');
-		iconSpan.className="glyphicon glyphicon-edit";
-
-		ed.appendChild(iconSpan);
-
-		ed.onclick = function(){
-
-			alert('entered edit');
-			alert(this.id);
-			document.getElementById('pcard-'+no).setAttribute('contenteditable', true);
-			alert(document.getElementById('pcard-'+no).innerHTML);
-			c=document.getElementById('pcard-'+no).innerHTML;
-			alert('c'+c);
-		    savecards();
-			
-		}
-		
-		d.appendChild(ed);
-        p.ed = ed;*/
-
-	
-
+     
 		var h = document.createElement('p');
 		h.innerHTML = content;
-		h.setAttribute('id',d.id);
+		h.id = 'p' + id;
+		//h.setAttribute('id’,h.id);
 		h.setAttribute('contenteditable', false);
 		d.appendChild(h);
 		p.h = h;
@@ -287,10 +262,10 @@
 	{
 		ev.preventDefault();
 		var data=ev.dataTransfer.getData("Text");
-		//document.getElementById("cards-0").appendChild(document.getElementById(data));
-		alert('target child'+ev.target.id);
-		alert('div element'+document.getElementById(data));
-		ev.target.appendChild(document.getElementById(data));
+		alert('parent target id'+ev.target.parentNode.parentNode.id);
+                 //alert('parent current target id'+ev.currentTarget.parentNode.id);
+		//alert(' current target id'+ev.currentTarget.id);
+		ev.target.parentNode.parentNode.prepend(document.getElementById(data));
 	}
 	
 	/* Custom */
